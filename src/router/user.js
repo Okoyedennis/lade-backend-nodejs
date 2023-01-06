@@ -18,8 +18,8 @@ router.post("/users", async (req, res, next) => {
     }
     user.role = Role.BASIC;
 
-      await user.save();
-      sendWelcomeEmail(user.email, user.firstName);
+    await user.save();
+    sendWelcomeEmail(user.email, user.firstName);
     const token = await user.generateAuthToken();
     res.status(201).send({ user, token });
   } catch (error) {
@@ -35,7 +35,7 @@ router.post("/users/login", async (req, res) => {
     if (!user) {
       return res
         .status(404)
-        .json({ message: "wrong username or password credentials" });
+        .json({ message: "Wrong username or password credentials" });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
@@ -43,7 +43,7 @@ router.post("/users/login", async (req, res) => {
     if (!isMatch) {
       return res
         .status(404)
-        .json({ message: "wrong username or password credentials" });
+        .json({ message: "Wrong username or password credentials" });
     }
     const token = await user.generateAuthToken();
     res.send({ user, token });
@@ -71,9 +71,6 @@ router.get("/users/me", auth, async (req, res) => {
   res.send(req.user);
 });
 
-
-
-
 router.get("/user/:id", auth, async (req, res) => {
   const _id = req.params.id;
 
@@ -95,7 +92,5 @@ router.get("/users/all", auth, async (req, res) => {
     res.status(500).send();
   }
 });
-
-
 
 module.exports = router;
