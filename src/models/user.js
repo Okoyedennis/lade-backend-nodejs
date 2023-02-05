@@ -3,11 +3,6 @@ const validator = require("validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-const Role = {
-  ADMIN: "admin",
-  BASIC: "basic",
-};
-
 const userSchema = new mongoose.Schema(
   {
     firstName: {
