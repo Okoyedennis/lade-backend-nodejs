@@ -9,11 +9,13 @@ router.post("/donation", auth, async (req, res) => {
     ...req.body,
     owner: req.user._id,
   }); 
+  
   try {
     await donation.save();
     sendDonationEmail(donation.email, donation.firstName, donation.amount);
     res.status(201).send(donation);
   } catch (error) {
+    console.log(error);
     res.status(400).send(error);
   }
 });
