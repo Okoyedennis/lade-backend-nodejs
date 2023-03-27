@@ -55,8 +55,32 @@ const sendDonationEmail = (email, name, amount) => {
     });
 };
 
+const sendForgotPasswordEmail = (email, firstName, resetUrl) => {
+  const msg = {
+    to: email,
+    from: "okoyedennis7@gmail.com",
+    subject: "Forgot Password",
+    html: ` <h2>Hello ${firstName}</h2>
+    <p>Please use the url below to reset your password</p>
+    <p>This reset link is valid for 30minutes.</p>
+
+    <a href=${resetUrl} clicktracking=off>${resetUrl}</a>
+
+    <p>Regards...</p>`,
+  };
+    sgMail
+      .send(msg)
+      .then(() => {
+        console.log("Email sent");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+};
+
 module.exports = {
   sendWelcomeEmail,
   sendAppliedEmail,
   sendDonationEmail,
+  sendForgotPasswordEmail,
 };
